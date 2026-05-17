@@ -8,6 +8,16 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Media.Imaging; 
+
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace lab5_HorseRacing
 {
@@ -18,6 +28,11 @@ namespace lab5_HorseRacing
         private double _betAmount;
 
         public ObservableCollection<Horse> Horses { get; set; }
+        public List<BitmapImage> HorseFrames { get; set; }
+
+        public BitmapImage SaddleImage { get; set; }
+        public BitmapImage JockeyImage { get; set; }
+
         public RelayCommand PlaceBetCommand { get; }
 
         public double Balance
@@ -42,6 +57,32 @@ namespace lab5_HorseRacing
         {
             Balance = 250;
             BetAmount = 20;
+
+            HorseFrames = new List<BitmapImage>();
+            for (int i = 1; i <= 5; i++)
+            {
+                try
+                {
+                    string uriString = $"pack://application:,,,/Images/horse_{i}.png";
+                    BitmapImage frame = new BitmapImage(new Uri(uriString, UriKind.Absolute));
+                    HorseFrames.Add(frame);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Failed to load horse_{i}.png: {ex.Message}");
+                }
+            }
+
+            try
+            {
+                SaddleImage = new BitmapImage(new Uri("pack://application:,,,/Images/saddle.png", UriKind.Absolute));
+                JockeyImage = new BitmapImage(new Uri("pack://application:,,,/Images/jockey.png", UriKind.Absolute));
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Failed to load saddle/jockey: {ex.Message}");
+            }
+
             Horses = new ObservableCollection<Horse>
             {
                 new Horse("Lucky", Colors.Pink, 1.25),

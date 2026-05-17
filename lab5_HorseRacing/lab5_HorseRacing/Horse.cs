@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
 
+
 namespace lab5_HorseRacing
 {
     public class Horse : INotifyPropertyChanged
@@ -23,8 +24,8 @@ namespace lab5_HorseRacing
         private double _coefficient;
         private double _moneyBet;
         private bool _isFinished;
+        private int _animationIndex;
 
-        public ImageSource SpritePlaceholder { get; set; }
         public double Acceleration { get; private set; }
 
         public string Name
@@ -69,6 +70,12 @@ namespace lab5_HorseRacing
             set { _isFinished = value; OnPropertyChanged(); }
         }
 
+        public int AnimationIndex
+        {
+            get => _animationIndex;
+            set { _animationIndex = value; OnPropertyChanged(); }
+        }
+
         public Horse(string name, Color color, double coefficient)
         {
             Name = name;
@@ -82,6 +89,7 @@ namespace lab5_HorseRacing
 
             PositionX = 0;
             IsFinished = false;
+            AnimationIndex = 0; 
         }
 
         public async Task ChangeAcceleration()
@@ -97,12 +105,21 @@ namespace lab5_HorseRacing
             });
         }
 
+        public void UpdateAnimation(int totalFrames)
+        {
+            if (totalFrames > 0)
+            {
+                AnimationIndex = (AnimationIndex + 1) % totalFrames;
+            }
+        }
+
         public void Reset()
         {
             PositionX = 0;
             IsFinished = false;
             RaceTime = TimeSpan.Zero;
             MoneyBet = 0;
+            AnimationIndex = 0; 
 
             lock (RndLock)
             {

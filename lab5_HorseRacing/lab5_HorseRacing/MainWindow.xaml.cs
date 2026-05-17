@@ -19,13 +19,13 @@ namespace lab5_HorseRacing
         private Stopwatch _stopwatch;
         private const double TrackLength = 600;
 
-
         public MainWindow()
         {
             InitializeComponent();
             _viewModel = new MainViewModel();
             DataContext = _viewModel;
             _stopwatch = new Stopwatch();
+
             Loaded += (s, e) => RenderFrame();
         }
 
@@ -53,12 +53,31 @@ namespace lab5_HorseRacing
                 }
 
                 RenderFrame();
+
                 CheckFinishLine();
+
                 await Task.Delay(30);
             }
 
             _stopwatch.Stop();
             _viewModel.ProcessResults();
+        }
+
+        private void StopSimulation_Click(object sender, RoutedEventArgs e)
+        {
+            _isRacing = false;
+        }
+
+        private async void ResetRace_Click(object sender, RoutedEventArgs e)
+        {
+            _isRacing = false;
+            _stopwatch.Stop();
+            _stopwatch.Reset();
+            await Task.Delay(50);
+
+            _viewModel.ResetRace();
+
+            RenderFrame();
         }
 
         private void RenderFrame()
@@ -74,22 +93,57 @@ namespace lab5_HorseRacing
                 dc.DrawRectangle(Brushes.LightGreen, null, new Rect(0, 0, width, height));
                 dc.DrawLine(new Pen(Brushes.Red, 3), new Point(TrackLength, 0), new Point(TrackLength, height));
 
+                double targetImageWidth = 80;
+                double targetImageHeight = 60;
+
                 double laneHeight = height / _viewModel.Horses.Count;
 
                 for (int i = 0; i < _viewModel.Horses.Count; i++)
                 {
                     var horse = _viewModel.Horses[i];
 
-                    if (!horse.IsFinished)
+                    if (!horse.IsFinished && _isRacing)
                     {
                         horse.PositionX += horse.Acceleration;
+                        horse.UpdateAnimation(_viewModel.HorseFrames.Count);
                     }
 
                     double drawX = horse.PositionX;
-                    double drawY = (i * laneHeight) + (laneHeight / 2) - 15;
+                    double centerY = (i * laneHeight) + (laneHeight / 2);
+                    double drawY = centerY - (targetImageHeight / 2);
 
-                    var brush = new SolidColorBrush(horse.HorseColor);
-                    dc.DrawRectangle(brush, null, new Rect(drawX, drawY, 40, 30));
+                    Rect horseRect = new Rect(drawX, drawY, targetImageWidth, targetImageHeight);
+
+                    if (_viewModel.HorseFrames != null && _viewModel.HorseFrames.Any())
+                    {
+                        BitmapImage currentFrame = _viewModel.HorseFrames[horse.AnimationIndex];
+                        dc.DrawImage(currentFrame, horseRect);
+                    }
+
+                    double saddleWidth = 30;
+                    double saddleHeight = 30;
+                    double saddleX = drawX + 25;
+                    double saddleY = drawY + 5;
+                    Rect saddleRect = new Rect(saddleX, saddleY, saddleWidth, saddleHeight);
+
+                    if (_viewModel.SaddleImage != null)
+                    {
+                        var saddleBrush = new ImageBrush(_viewModel.SaddleImage);
+                        dc.PushOpacityMask(saddleBrush);
+                        dc.DrawRectangle(new SolidColorBrush(horse.HorseColor), null, saddleRect);
+                        dc.Pop();
+                    }
+
+                    double jockeyWidth = 40;
+                    double jockeyHeight = 40;
+                    double jockeyX = drawX + 15;
+                    double jockeyY = drawY - 15;
+                    Rect jockeyRect = new Rect(jockeyX, jockeyY, jockeyWidth, jockeyHeight);
+
+                    if (_viewModel.JockeyImage != null)
+                    {
+                        dc.DrawImage(_viewModel.JockeyImage, jockeyRect);
+                    }
                 }
             }
 
@@ -119,24 +173,6 @@ namespace lab5_HorseRacing
             {
                 _isRacing = false;
             }
-        }
-
-        private void StopSimulation_Click(object sender, RoutedEventArgs e)
-        {
-            _isRacing = false;
-        }
-
-        private async void ResetRace_Click(object sender, RoutedEventArgs e)
-        {
-            _isRacing = false;
-            _stopwatch.Stop();
-            _stopwatch.Reset();
-
-            await Task.Delay(30);
-
-            _viewModel.ResetRace();
-
-            RenderFrame();
         }
     }
 }
