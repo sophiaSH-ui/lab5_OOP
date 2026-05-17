@@ -6,7 +6,6 @@ E:\2 course 2 sem\OOP labs\lab5_OOP\lab5_HorseRacing\lab5_HorseRacing\bin\Debug\
 E:\2 course 2 sem\OOP labs\lab5_OOP\lab5_HorseRacing\lab5_HorseRacing\obj\Debug\net9.0-windows\MainWindow.g.cs
 E:\2 course 2 sem\OOP labs\lab5_OOP\lab5_HorseRacing\lab5_HorseRacing\obj\Debug\net9.0-windows\App.g.cs
 E:\2 course 2 sem\OOP labs\lab5_OOP\lab5_HorseRacing\lab5_HorseRacing\obj\Debug\net9.0-windows\lab5_HorseRacing_MarkupCompile.cache
-E:\2 course 2 sem\OOP labs\lab5_OOP\lab5_HorseRacing\lab5_HorseRacing\obj\Debug\net9.0-windows\lab5_HorseRacing_MarkupCompile.lref
 E:\2 course 2 sem\OOP labs\lab5_OOP\lab5_HorseRacing\lab5_HorseRacing\obj\Debug\net9.0-windows\MainWindow.baml
 E:\2 course 2 sem\OOP labs\lab5_OOP\lab5_HorseRacing\lab5_HorseRacing\obj\Debug\net9.0-windows\lab5_HorseRacing.g.resources
 E:\2 course 2 sem\OOP labs\lab5_OOP\lab5_HorseRacing\lab5_HorseRacing\obj\Debug\net9.0-windows\lab5_HorseRacing.GeneratedMSBuildEditorConfig.editorconfig
@@ -18,3 +17,4 @@ E:\2 course 2 sem\OOP labs\lab5_OOP\lab5_HorseRacing\lab5_HorseRacing\obj\Debug\
 E:\2 course 2 sem\OOP labs\lab5_OOP\lab5_HorseRacing\lab5_HorseRacing\obj\Debug\net9.0-windows\lab5_HorseRacing.pdb
 E:\2 course 2 sem\OOP labs\lab5_OOP\lab5_HorseRacing\lab5_HorseRacing\obj\Debug\net9.0-windows\lab5_HorseRacing.genruntimeconfig.cache
 E:\2 course 2 sem\OOP labs\lab5_OOP\lab5_HorseRacing\lab5_HorseRacing\obj\Debug\net9.0-windows\ref\lab5_HorseRacing.dll
+E:\2 course 2 sem\OOP labs\lab5_OOP\lab5_HorseRacing\lab5_HorseRacing\obj\Debug\net9.0-windows\lab5_HorseRacing.sourcelink.json

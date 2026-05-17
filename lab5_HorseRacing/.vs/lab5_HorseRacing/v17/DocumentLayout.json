@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "E:\\2 course 2 sem\\OOP labs\\lab5_OOP\\lab5_HorseRacing\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|e:\\2 course 2 sem\\oop labs\\lab5_oop\\lab5_horseracing\\lab5_horseracing\\horse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|solutionrelative:lab5_horseracing\\horse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|e:\\2 course 2 sem\\oop labs\\lab5_oop\\lab5_horseracing\\lab5_horseracing\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|solutionrelative:lab5_horseracing\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|e:\\2 course 2 sem\\oop labs\\lab5_oop\\lab5_horseracing\\lab5_horseracing\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|solutionrelative:lab5_horseracing\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|e:\\2 course 2 sem\\oop labs\\lab5_oop\\lab5_horseracing\\lab5_horseracing\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|solutionrelative:lab5_horseracing\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|e:\\2 course 2 sem\\oop labs\\lab5_oop\\lab5_horseracing\\lab5_horseracing\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|solutionrelative:lab5_horseracing\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|e:\\2 course 2 sem\\oop labs\\lab5_oop\\lab5_horseracing\\lab5_horseracing\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|solutionrelative:lab5_horseracing\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|e:\\2 course 2 sem\\oop labs\\lab5_oop\\lab5_horseracing\\lab5_horseracing\\horse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|solutionrelative:lab5_horseracing\\horse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 74,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,7 +42,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "E:\\2 course 2 sem\\OOP labs\\lab5_OOP\\lab5_HorseRacing\\lab5_HorseRacing\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "lab5_HorseRacing\\MainViewModel.cs",
+              "ToolTip": "E:\\2 course 2 sem\\OOP labs\\lab5_OOP\\lab5_HorseRacing\\lab5_HorseRacing\\MainViewModel.cs",
+              "RelativeToolTip": "lab5_HorseRacing\\MainViewModel.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAD4vwgAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-17T18:53:36.725Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Horse.cs",
               "DocumentMoniker": "E:\\2 course 2 sem\\OOP labs\\lab5_OOP\\lab5_HorseRacing\\lab5_HorseRacing\\Horse.cs",
               "RelativeDocumentMoniker": "lab5_HorseRacing\\Horse.cs",
@@ -51,39 +68,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "RelayCommand.cs",
               "DocumentMoniker": "E:\\2 course 2 sem\\OOP labs\\lab5_OOP\\lab5_HorseRacing\\lab5_HorseRacing\\RelayCommand.cs",
               "RelativeDocumentMoniker": "lab5_HorseRacing\\RelayCommand.cs",
               "ToolTip": "E:\\2 course 2 sem\\OOP labs\\lab5_OOP\\lab5_HorseRacing\\lab5_HorseRacing\\RelayCommand.cs",
               "RelativeToolTip": "lab5_HorseRacing\\RelayCommand.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-17T18:44:01.324Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "E:\\2 course 2 sem\\OOP labs\\lab5_OOP\\lab5_HorseRacing\\lab5_HorseRacing\\MainWindow.xaml",
               "RelativeDocumentMoniker": "lab5_HorseRacing\\MainWindow.xaml",
               "ToolTip": "E:\\2 course 2 sem\\OOP labs\\lab5_OOP\\lab5_HorseRacing\\lab5_HorseRacing\\MainWindow.xaml",
               "RelativeToolTip": "lab5_HorseRacing\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-05-17T18:37:51.947Z"
+              "WhenOpened": "2026-05-17T18:37:51.947Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "E:\\2 course 2 sem\\OOP labs\\lab5_OOP\\lab5_HorseRacing\\lab5_HorseRacing\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "lab5_HorseRacing\\MainWindow.xaml.cs",
               "ToolTip": "E:\\2 course 2 sem\\OOP labs\\lab5_OOP\\lab5_HorseRacing\\lab5_HorseRacing\\MainWindow.xaml.cs",
               "RelativeToolTip": "lab5_HorseRacing\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-17T18:37:50.602Z"
+              "WhenOpened": "2026-05-17T18:37:50.602Z",
+              "EditorCaption": ""
             }
           ]
         }
