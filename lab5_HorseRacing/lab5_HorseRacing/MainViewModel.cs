@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-
+using System.Windows.Data;
 
 namespace lab5_HorseRacing
 {
@@ -19,7 +19,9 @@ namespace lab5_HorseRacing
         {
             Colors.Pink, Colors.Red, Colors.Green, Colors.Blue, Colors.Black,
             Colors.Orange, Colors.Purple, Colors.Cyan, Colors.Yellow, Colors.Brown,
-            Colors.Magenta, Colors.Lime, Colors.Teal, Colors.Navy
+            Colors.Magenta, Colors.Lime, Colors.Teal, Colors.Navy, Colors.Gold,
+            Colors.Coral, Colors.Aqua, Colors.Violet, Colors.Salmon, Colors.Crimson,
+            Colors.Indigo, Colors.Khaki, Colors.Olive, Colors.Plum, Colors.Silver, Colors.Tomato
         };
 
         private static readonly string[] AllNames =
@@ -31,6 +33,7 @@ namespace lab5_HorseRacing
         private double _balance;
         private Horse _selectedHorse;
         private double _betAmount;
+        private bool _isRaceFinished;
 
         public ObservableCollection<Horse> Horses { get; set; }
         public List<BitmapImage> HorseFrames { get; set; }
@@ -59,6 +62,14 @@ namespace lab5_HorseRacing
             get => _betAmount;
             set { _betAmount = value; OnPropertyChanged(); }
         }
+
+        public bool IsRaceFinished
+        {
+            get => _isRaceFinished;
+            set { _isRaceFinished = value; OnPropertyChanged(); OnPropertyChanged(nameof(CanReset)); }
+        }
+
+        public bool CanReset => !Horses.Any(h => h.MoneyBet > 0) || IsRaceFinished;
 
         public MainViewModel()
         {
@@ -98,6 +109,14 @@ namespace lab5_HorseRacing
                 new Horse("Tucker", Colors.Blue, 1.75)
             };
 
+            ICollectionView view = CollectionViewSource.GetDefaultView(Horses);
+            if (view is ICollectionViewLiveShaping liveView)
+            {
+                liveView.IsLiveSorting = true;
+                liveView.LiveSortingProperties.Add(nameof(Horse.PositionX));
+            }
+            view.SortDescriptions.Add(new SortDescription(nameof(Horse.PositionX), ListSortDirection.Descending));
+
             PlaceBetCommand = new RelayCommand(PlaceBet, CanPlaceBet);
             AddHorseCommand = new RelayCommand(AddHorse, CanAddHorse);
             RemoveHorseCommand = new RelayCommand(RemoveHorse, CanRemoveHorse);
@@ -124,6 +143,7 @@ namespace lab5_HorseRacing
         {
             Balance -= BetAmount;
             SelectedHorse.MoneyBet += BetAmount;
+            OnPropertyChanged(nameof(CanReset));
         }
 
         private bool CanAddHorse(object obj) => Horses.Count < 14 && Horses.All(h => h.PositionX == 0);
@@ -171,6 +191,7 @@ namespace lab5_HorseRacing
             {
                 horse.Reset();
             }
+            IsRaceFinished = false;
         }
 
         public void ProcessResults()
@@ -190,6 +211,7 @@ namespace lab5_HorseRacing
                     winners[i].Coefficient = Math.Round(baseCoef + (i * 0.4), 2);
                 }
             }
+            IsRaceFinished = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

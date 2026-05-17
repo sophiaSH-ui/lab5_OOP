@@ -87,6 +87,12 @@ namespace lab5_HorseRacing
             var bitmap = new RenderTargetBitmap((int)width, (int)height, 96, 96, PixelFormats.Pbgra32);
             var drawingVisual = new DrawingVisual();
 
+            var sortedHorses = _viewModel.Horses.OrderByDescending(h => h.PositionX).ToList();
+            for (int j = 0; j < sortedHorses.Count; j++)
+            {
+                sortedHorses[j].Place = j + 1;
+            }
+
             using (DrawingContext dc = drawingVisual.RenderOpen())
             {
                 var grassBrush = new SolidColorBrush(Color.FromRgb(65, 152, 10));

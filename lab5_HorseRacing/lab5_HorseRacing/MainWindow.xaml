@@ -108,7 +108,7 @@
 
                 <Button Content="START SIMULATION" Click="StartSimulation_Click" Style="{StaticResource ModernButton}" Margin="0,0,0,10" Height="45" FontSize="14"/>
                 <Button Content="STOP" Click="StopSimulation_Click" Style="{StaticResource DangerButton}" Margin="0,0,0,10"/>
-                <Button Content="RESET MATCH" Click="ResetRace_Click" Style="{StaticResource ActionButton}"/>
+                <Button Content="RESET MATCH" Click="ResetRace_Click" IsEnabled="{Binding CanReset}" Style="{StaticResource ActionButton}"/>
             </StackPanel>
         </Border>
 
@@ -142,8 +142,8 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Place" Binding="{Binding Place}" Width="0.5*"/>
                     <DataGridTextColumn Header="Horse Name" Binding="{Binding Name}" Width="2*"/>
-                    <DataGridTextColumn Header="Current X" Binding="{Binding PositionX, StringFormat={}{0:F1}}" Width="*"/>
                     <DataGridTextColumn Header="Race Time" Binding="{Binding RaceTime, StringFormat={}{0:mm\\:ss\\.ff}}" Width="*"/>
                     <DataGridTextColumn Header="Coef" Binding="{Binding Coefficient, StringFormat={}{0:F2}}" Width="*"/>
                     <DataGridTextColumn Header="Bet Money" Binding="{Binding MoneyBet, StringFormat={}{0:F2} $}" Width="*"/>
