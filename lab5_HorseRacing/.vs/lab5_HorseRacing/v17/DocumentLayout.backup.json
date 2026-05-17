@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "E:\\2 course 2 sem\\OOP labs\\lab5_OOP\\lab5_HorseRacing\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|e:\\2 course 2 sem\\oop labs\\lab5_oop\\lab5_horseracing\\lab5_horseracing\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|solutionrelative:lab5_horseracing\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|e:\\2 course 2 sem\\oop labs\\lab5_oop\\lab5_horseracing\\lab5_horseracing\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{6A67B306-F8D4-4714-B240-C50C2EB9CE1C}|lab5_HorseRacing\\lab5_HorseRacing.csproj|solutionrelative:lab5_horseracing\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
@@ -31,6 +35,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "RelayCommand.cs",
+              "DocumentMoniker": "E:\\2 course 2 sem\\OOP labs\\lab5_OOP\\lab5_HorseRacing\\lab5_HorseRacing\\RelayCommand.cs",
+              "RelativeDocumentMoniker": "lab5_HorseRacing\\RelayCommand.cs",
+              "ToolTip": "E:\\2 course 2 sem\\OOP labs\\lab5_OOP\\lab5_HorseRacing\\lab5_HorseRacing\\RelayCommand.cs",
+              "RelativeToolTip": "lab5_HorseRacing\\RelayCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-17T18:44:01.324Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "E:\\2 course 2 sem\\OOP labs\\lab5_OOP\\lab5_HorseRacing\\lab5_HorseRacing\\MainWindow.xaml",
               "RelativeDocumentMoniker": "lab5_HorseRacing\\MainWindow.xaml",
@@ -42,7 +59,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "E:\\2 course 2 sem\\OOP labs\\lab5_OOP\\lab5_HorseRacing\\lab5_HorseRacing\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "lab5_HorseRacing\\MainWindow.xaml.cs",
