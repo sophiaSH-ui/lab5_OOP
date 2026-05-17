@@ -12,7 +12,9 @@ namespace lab5_HorseRacing
     public class Horse : INotifyPropertyChanged
     {
         private static readonly Random Rnd = new Random();
-        private readonly double _speed;
+        private static readonly object RndLock = new object();
+
+        private double _speed;
 
         private string _name;
         private Color _horseColor;
@@ -72,7 +74,12 @@ namespace lab5_HorseRacing
             Name = name;
             HorseColor = color;
             Coefficient = coefficient;
-            _speed = Rnd.Next(5, 11);
+
+            lock (RndLock)
+            {
+                _speed = Rnd.Next(5, 15);
+            }
+
             PositionX = 0;
             IsFinished = false;
         }
@@ -81,9 +88,26 @@ namespace lab5_HorseRacing
         {
             await Task.Run(() =>
             {
-                double multiplier = Rnd.NextDouble() * (1.0 - 0.7) + 0.7;
+                double multiplier;
+                lock (RndLock)
+                {
+                    multiplier = Rnd.NextDouble() * (1.5 - 0.3) + 0.3;
+                }
                 Acceleration = _speed * multiplier;
             });
+        }
+
+        public void Reset()
+        {
+            PositionX = 0;
+            IsFinished = false;
+            RaceTime = TimeSpan.Zero;
+            MoneyBet = 0;
+
+            lock (RndLock)
+            {
+                _speed = Rnd.Next(5, 15);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

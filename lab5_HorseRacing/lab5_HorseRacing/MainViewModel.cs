@@ -1,11 +1,12 @@
-﻿using System;
+﻿using lab5_HorseRacing;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace lab5_HorseRacing
@@ -18,7 +19,6 @@ namespace lab5_HorseRacing
 
         public ObservableCollection<Horse> Horses { get; set; }
         public RelayCommand PlaceBetCommand { get; }
-        public RelayCommand ResetRaceCommand { get; }
 
         public double Balance
         {
@@ -52,7 +52,6 @@ namespace lab5_HorseRacing
             };
 
             PlaceBetCommand = new RelayCommand(PlaceBet, CanPlaceBet);
-            ResetRaceCommand = new RelayCommand(ResetRace);
         }
 
         private bool CanPlaceBet(object obj)
@@ -66,14 +65,11 @@ namespace lab5_HorseRacing
             SelectedHorse.MoneyBet += BetAmount;
         }
 
-        private void ResetRace(object obj)
+        public void ResetRace()
         {
             foreach (var horse in Horses)
             {
-                horse.PositionX = 0;
-                horse.IsFinished = false;
-                horse.RaceTime = System.TimeSpan.Zero;
-                horse.MoneyBet = 0;
+                horse.Reset();
             }
         }
 

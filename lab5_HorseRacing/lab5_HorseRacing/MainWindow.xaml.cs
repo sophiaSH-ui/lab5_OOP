@@ -19,12 +19,14 @@ namespace lab5_HorseRacing
         private Stopwatch _stopwatch;
         private const double TrackLength = 600;
 
+
         public MainWindow()
         {
             InitializeComponent();
             _viewModel = new MainViewModel();
             DataContext = _viewModel;
             _stopwatch = new Stopwatch();
+            Loaded += (s, e) => RenderFrame();
         }
 
         private async void StartSimulation_Click(object sender, RoutedEventArgs e)
@@ -117,6 +119,24 @@ namespace lab5_HorseRacing
             {
                 _isRacing = false;
             }
+        }
+
+        private void StopSimulation_Click(object sender, RoutedEventArgs e)
+        {
+            _isRacing = false;
+        }
+
+        private async void ResetRace_Click(object sender, RoutedEventArgs e)
+        {
+            _isRacing = false;
+            _stopwatch.Stop();
+            _stopwatch.Reset();
+
+            await Task.Delay(30);
+
+            _viewModel.ResetRace();
+
+            RenderFrame();
         }
     }
 }

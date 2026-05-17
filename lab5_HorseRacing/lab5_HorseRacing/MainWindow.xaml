@@ -12,7 +12,7 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
+        
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="10">
             <TextBlock Text="Bettings" FontSize="18" FontWeight="Bold" Foreground="Salmon" Margin="0,0,0,20"/>
             <TextBlock Text="{Binding Balance, StringFormat='Balance: {0}$'}" FontWeight="Bold" Margin="0,0,0,20"/>
@@ -24,7 +24,10 @@
             <Button Content="BET" Command="{Binding PlaceBetCommand}" Margin="0,0,0,20" Width="100" HorizontalAlignment="Left"/>
 
             <Button Content="START SIMULATION" Click="StartSimulation_Click" Margin="0,0,0,10" Background="LightGreen"/>
-            <Button Content="RESET" Command="{Binding ResetRaceCommand}" Margin="0,0,0,10"/>
+
+            <Button Content="STOP" Click="StopSimulation_Click" Margin="0,0,0,10" Background="LightCoral"/>
+
+            <Button Content="RESET" Click="ResetRace_Click" Margin="0,0,0,10"/>
         </StackPanel>
 
         <Image x:Name="RenderImage" Grid.Row="0" Grid.Column="1" Stretch="Fill"/>
