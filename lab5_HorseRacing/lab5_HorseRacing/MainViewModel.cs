@@ -8,32 +8,39 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
-using System.Windows.Media.Imaging; 
-
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
+
 
 namespace lab5_HorseRacing
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private static readonly Color[] AllAllowedColors =
+        {
+            Colors.Pink, Colors.Red, Colors.Green, Colors.Blue, Colors.Black,
+            Colors.Orange, Colors.Purple, Colors.Cyan, Colors.Yellow, Colors.Brown,
+            Colors.Magenta, Colors.Lime, Colors.Teal, Colors.Navy
+        };
+
+        private static readonly string[] AllNames =
+        {
+            "Lucky", "Ranger", "Willow", "Tucker", "Shadow", "Apollo",
+            "Blaze", "Comet", "Dash", "Eclipse", "Flash", "Ghost", "Hunter", "Storm"
+        };
+
         private double _balance;
         private Horse _selectedHorse;
         private double _betAmount;
 
         public ObservableCollection<Horse> Horses { get; set; }
         public List<BitmapImage> HorseFrames { get; set; }
-
         public BitmapImage SaddleImage { get; set; }
         public BitmapImage JockeyImage { get; set; }
 
         public RelayCommand PlaceBetCommand { get; }
+        public RelayCommand AddHorseCommand { get; }
+        public RelayCommand RemoveHorseCommand { get; }
+        public RelayCommand ChangeHorseColorCommand { get; }
 
         public double Balance
         {
@@ -88,22 +95,74 @@ namespace lab5_HorseRacing
                 new Horse("Lucky", Colors.Pink, 1.25),
                 new Horse("Ranger", Colors.Red, 1.50),
                 new Horse("Willow", Colors.Green, 2.00),
-                new Horse("Tucker", Colors.Blue, 1.75),
-                new Horse("Shadow", Colors.Black, 3.00)
+                new Horse("Tucker", Colors.Blue, 1.75)
             };
 
             PlaceBetCommand = new RelayCommand(PlaceBet, CanPlaceBet);
+            AddHorseCommand = new RelayCommand(AddHorse, CanAddHorse);
+            RemoveHorseCommand = new RelayCommand(RemoveHorse, CanRemoveHorse);
+            ChangeHorseColorCommand = new RelayCommand(ChangeHorseColor);
         }
 
         private bool CanPlaceBet(object obj)
         {
-            return SelectedHorse != null && Balance >= BetAmount && Horses.All(h => h.PositionX == 0);
+            if (SelectedHorse == null || Balance < BetAmount || Horses.Any(h => h.PositionX > 0))
+            {
+                return false;
+            }
+
+            var alreadyBettedHorse = Horses.FirstOrDefault(h => h.MoneyBet > 0);
+            if (alreadyBettedHorse != null && alreadyBettedHorse != SelectedHorse)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private void PlaceBet(object obj)
         {
             Balance -= BetAmount;
             SelectedHorse.MoneyBet += BetAmount;
+        }
+
+        private bool CanAddHorse(object obj) => Horses.Count < 14 && Horses.All(h => h.PositionX == 0);
+
+        private void AddHorse(object obj)
+        {
+            var usedColors = Horses.Select(h => h.HorseColor).ToList();
+            var unusedColor = AllAllowedColors.First(c => !usedColors.Contains(c));
+
+            var usedNames = Horses.Select(h => h.Name).ToList();
+            var unusedName = AllNames.First(n => !usedNames.Contains(n));
+
+            double defaultCoefficient = 2.00;
+            Horses.Add(new Horse(unusedName, unusedColor, defaultCoefficient));
+        }
+
+        private bool CanRemoveHorse(object obj) => Horses.Count > 2 && Horses.All(h => h.PositionX == 0);
+
+        private void RemoveHorse(object obj)
+        {
+            Horses.Remove(Horses.Last());
+            if (SelectedHorse != null && !Horses.Contains(SelectedHorse))
+            {
+                SelectedHorse = null;
+            }
+        }
+
+        private void ChangeHorseColor(object obj)
+        {
+            if (obj is Horse horse && Horses.All(h => h.PositionX == 0))
+            {
+                var usedColors = Horses.Select(h => h.HorseColor).ToList();
+                var availableColors = AllAllowedColors.Where(c => !usedColors.Contains(c) || c == horse.HorseColor).ToList();
+
+                int currentIndex = availableColors.IndexOf(horse.HorseColor);
+                int nextIndex = (currentIndex + 1) % availableColors.Count;
+
+                horse.HorseColor = availableColors[nextIndex];
+            }
         }
 
         public void ResetRace()
@@ -123,6 +182,12 @@ namespace lab5_HorseRacing
                 if (firstPlace.MoneyBet > 0)
                 {
                     Balance += firstPlace.MoneyBet * firstPlace.Coefficient;
+                }
+
+                double baseCoef = 1.10;
+                for (int i = 0; i < winners.Count; i++)
+                {
+                    winners[i].Coefficient = Math.Round(baseCoef + (i * 0.4), 2);
                 }
             }
         }

@@ -17,7 +17,7 @@ namespace lab5_HorseRacing
         private MainViewModel _viewModel;
         private bool _isRacing;
         private Stopwatch _stopwatch;
-        private const double TrackLength = 600;
+        private const double TrackLength = 650;
 
         public MainWindow()
         {
@@ -53,7 +53,6 @@ namespace lab5_HorseRacing
                 }
 
                 RenderFrame();
-
                 CheckFinishLine();
 
                 await Task.Delay(30);
@@ -73,10 +72,10 @@ namespace lab5_HorseRacing
             _isRacing = false;
             _stopwatch.Stop();
             _stopwatch.Reset();
+
             await Task.Delay(50);
 
             _viewModel.ResetRace();
-
             RenderFrame();
         }
 
@@ -90,13 +89,27 @@ namespace lab5_HorseRacing
 
             using (DrawingContext dc = drawingVisual.RenderOpen())
             {
-                dc.DrawRectangle(Brushes.LightGreen, null, new Rect(0, 0, width, height));
-                dc.DrawLine(new Pen(Brushes.Red, 3), new Point(TrackLength, 0), new Point(TrackLength, height));
+                var grassBrush = new SolidColorBrush(Color.FromRgb(65, 152, 10));
+                dc.DrawRectangle(grassBrush, null, new Rect(0, 0, width, height));
+
+                double laneHeight = height / _viewModel.Horses.Count;
+                var lanePen = new Pen(new SolidColorBrush(Color.FromArgb(120, 255, 255, 255)), 2)
+                {
+                    DashStyle = DashStyles.Dash
+                };
+
+                for (int i = 1; i < _viewModel.Horses.Count; i++)
+                {
+                    dc.DrawLine(lanePen, new Point(0, i * laneHeight), new Point(width, i * laneHeight));
+                }
+
+                dc.DrawLine(new Pen(Brushes.Red, 5), new Point(TrackLength, 0), new Point(TrackLength, height));
+
+                var finishLinePattern = new Pen(Brushes.White, 5) { DashStyle = new DashStyle(new double[] { 2, 2 }, 0) };
+                dc.DrawLine(finishLinePattern, new Point(TrackLength, 0), new Point(TrackLength, height));
 
                 double targetImageWidth = 80;
                 double targetImageHeight = 60;
-
-                double laneHeight = height / _viewModel.Horses.Count;
 
                 for (int i = 0; i < _viewModel.Horses.Count; i++)
                 {
@@ -106,6 +119,7 @@ namespace lab5_HorseRacing
                     {
                         horse.PositionX += horse.Acceleration;
                         horse.UpdateAnimation(_viewModel.HorseFrames.Count);
+                        horse.RaceTime = _stopwatch.Elapsed;
                     }
 
                     double drawX = horse.PositionX;
