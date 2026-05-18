@@ -34,6 +34,10 @@ namespace lab5_HorseRacing
         private Horse _selectedHorse;
         private double _betAmount;
         private bool _isRaceFinished;
+        private string _resultTitle;
+        private string _resultSubtitle;
+        private bool _isRaceRunning;
+        private bool _isRaceStarted;
 
         public ObservableCollection<Horse> Horses { get; set; }
         public List<BitmapImage> HorseFrames { get; set; }
@@ -44,6 +48,18 @@ namespace lab5_HorseRacing
         public RelayCommand AddHorseCommand { get; }
         public RelayCommand RemoveHorseCommand { get; }
         public RelayCommand ChangeHorseColorCommand { get; }
+
+        public bool IsRaceRunning
+        {
+            get => _isRaceRunning;
+            set { _isRaceRunning = value; OnPropertyChanged(); OnPropertyChanged(nameof(CanReset)); }
+        }
+
+        public bool IsRaceStarted
+        {
+            get => _isRaceStarted;
+            set { _isRaceStarted = value; OnPropertyChanged(); OnPropertyChanged(nameof(CanReset)); }
+        }
 
         public double Balance
         {
@@ -69,7 +85,19 @@ namespace lab5_HorseRacing
             set { _isRaceFinished = value; OnPropertyChanged(); OnPropertyChanged(nameof(CanReset)); }
         }
 
-        public bool CanReset => !Horses.Any(h => h.MoneyBet > 0) || IsRaceFinished;
+        public string ResultTitle
+        {
+            get => _resultTitle;
+            set { _resultTitle = value; OnPropertyChanged(); }
+        }
+
+        public string ResultSubtitle
+        {
+            get => _resultSubtitle;
+            set { _resultSubtitle = value; OnPropertyChanged(); }
+        }
+
+        public bool CanReset => IsRaceStarted && (IsRaceFinished || !IsRaceRunning);
 
         public MainViewModel()
         {
@@ -126,15 +154,11 @@ namespace lab5_HorseRacing
         private bool CanPlaceBet(object obj)
         {
             if (SelectedHorse == null || Balance < BetAmount || Horses.Any(h => h.PositionX > 0))
-            {
                 return false;
-            }
 
             var alreadyBettedHorse = Horses.FirstOrDefault(h => h.MoneyBet > 0);
             if (alreadyBettedHorse != null && alreadyBettedHorse != SelectedHorse)
-            {
                 return false;
-            }
 
             return true;
         }
@@ -156,8 +180,7 @@ namespace lab5_HorseRacing
             var usedNames = Horses.Select(h => h.Name).ToList();
             var unusedName = AllNames.First(n => !usedNames.Contains(n));
 
-            double defaultCoefficient = 2.00;
-            Horses.Add(new Horse(unusedName, unusedColor, defaultCoefficient));
+            Horses.Add(new Horse(unusedName, unusedColor, 2.00));
         }
 
         private bool CanRemoveHorse(object obj) => Horses.Count > 2 && Horses.All(h => h.PositionX == 0);
@@ -166,9 +189,7 @@ namespace lab5_HorseRacing
         {
             Horses.Remove(Horses.Last());
             if (SelectedHorse != null && !Horses.Contains(SelectedHorse))
-            {
                 SelectedHorse = null;
-            }
         }
 
         private void ChangeHorseColor(object obj)
@@ -188,28 +209,48 @@ namespace lab5_HorseRacing
         public void ResetRace()
         {
             foreach (var horse in Horses)
-            {
                 horse.Reset();
-            }
+
+            ResultTitle = string.Empty;
+            ResultSubtitle = string.Empty;
             IsRaceFinished = false;
+            IsRaceStarted = false; 
+            IsRaceRunning = false; 
         }
 
         public void ProcessResults()
         {
             var winners = Horses.Where(h => h.IsFinished).OrderBy(h => h.RaceTime).ToList();
+
             if (winners.Count > 0)
             {
                 var firstPlace = winners.First();
-                if (firstPlace.MoneyBet > 0)
+                var bettedHorse = Horses.FirstOrDefault(h => h.MoneyBet > 0);
+
+                if (bettedHorse != null)
                 {
-                    Balance += firstPlace.MoneyBet * firstPlace.Coefficient;
+                    if (bettedHorse == firstPlace)
+                    {
+                        double payout = bettedHorse.MoneyBet * bettedHorse.Coefficient;
+                        Balance += payout;
+                        ResultTitle = $"🏆  {bettedHorse.Name} WON!";
+                        ResultSubtitle = $"Payout:  +{payout:F2} $  →  Balance: {Balance:F2} $";
+                    }
+                    else
+                    {
+                        ResultTitle = $"Your horse {bettedHorse.Name} lost";
+                        ResultSubtitle = $"Winner:  {firstPlace.Name}";
+                    }
+                }
+                else
+                {
+                    ResultTitle = $"🏁  Race Finished";
+                    ResultSubtitle = $"Winner:  {firstPlace.Name}";
                 }
 
                 double baseCoef = 1.10;
                 for (int i = 0; i < winners.Count; i++)
-                {
                     winners[i].Coefficient = Math.Round(baseCoef + (i * 0.4), 2);
-                }
             }
 
             foreach (var horse in Horses)
