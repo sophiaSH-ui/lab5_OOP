@@ -121,26 +121,66 @@ namespace lab5_Voronoi
             {
                 object syncRoot = new object();
 
-                Parallel.For(0, height, () => new int[seeds.Count], (y, loopState, localCounts) =>
+                int blockSize = 50; 
+                int blocksX = (int)Math.Ceiling((double)width / blockSize);
+                int blocksY = (int)Math.Ceiling((double)height / blockSize);
+                int totalBlocks = blocksX * blocksY;
+
+                Parallel.For(0, totalBlocks, () => new int[seeds.Count], (blockIdx, loopState, localCounts) =>
                 {
-                    int offset = y * width;
-                    for (int x = 0; x < width; x++)
+                    int bx = blockIdx % blocksX;
+                    int by = blockIdx / blocksX;
+                    int startX = bx * blockSize;
+                    int startY = by * blockSize;
+                    int endX = Math.Min(startX + blockSize, width);
+                    int endY = Math.Min(startY + blockSize, height);
+
+                    int cx = startX + blockSize / 2; 
+                    int cy = startY + blockSize / 2; 
+
+                    int closestDistToCenter = int.MaxValue;
+                    foreach (var s in seeds)
                     {
-                        int bestIndex = 0;
-                        double minDistance = double.MaxValue;
+                        int dist = Math.Abs(s.X - cx) + Math.Abs(s.Y - cy);
+                        if (dist < closestDistToCenter) closestDistToCenter = dist;
+                    }
 
-                        for (int i = 0; i < seeds.Count; i++)
+                    int threshold = closestDistToCenter + blockSize * 3;
+                    var candidates = new List<int>();
+
+                    for (int i = 0; i < seeds.Count; i++)
+                    {
+                        if (Math.Abs(seeds[i].X - cx) + Math.Abs(seeds[i].Y - cy) <= threshold)
                         {
-                            double d = metric(seeds[i].X - x, seeds[i].Y - y);
-                            if (d < minDistance)
-                            {
-                                minDistance = d;
-                                bestIndex = i;
-                            }
+                            candidates.Add(i);
                         }
+                    }
 
-                        pixels[offset + x] = seeds[bestIndex].Color.ToArgb();
-                        localCounts[bestIndex]++;
+                    int[] localSeeds = candidates.ToArray();
+
+                    for (int y = startY; y < endY; y++)
+                    {
+                        int offset = y * width;
+                        for (int x = startX; x < endX; x++)
+                        {
+                            int bestIndex = localSeeds[0];
+                            double minDistance = double.MaxValue;
+
+                            for (int i = 0; i < localSeeds.Length; i++)
+                            {
+                                int seedIdx = localSeeds[i];
+                                double d = metric(seeds[seedIdx].X - x, seeds[seedIdx].Y - y);
+                                if (d < minDistance)
+                                {
+                                    minDistance = d;
+                                    bestIndex = seedIdx;
+                                }
+                            }
+
+                            pixels[offset + x] = seeds[bestIndex].Color.ToArgb();
+
+                            localCounts[bestIndex]++;
+                        }
                     }
                     return localCounts;
                 },
@@ -174,7 +214,7 @@ namespace lab5_Voronoi
                         }
 
                         pixels[offset + x] = seeds[bestIndex].Color.ToArgb();
-                        seeds[bestIndex].PixelCount++;
+                        seeds[bestIndex].PixelCount++; 
                     }
                 }
             }
@@ -184,7 +224,7 @@ namespace lab5_Voronoi
             long memAfter = GC.GetTotalMemory(false);
 
             TimeSpan cpuTime = cpuEnd - cpuStart;
-            long memUsed = Math.Max(0, memAfter - memBefore) / 1024;
+            long memUsed = Math.Max(0, memAfter - memBefore) / 1024; 
 
             Bitmap bmp = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
             var data = bmp.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.WriteOnly, PixelFormat.Format32bppPArgb);

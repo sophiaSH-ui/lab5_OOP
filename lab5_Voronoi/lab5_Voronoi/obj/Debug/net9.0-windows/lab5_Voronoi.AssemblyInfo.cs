@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("lab5_Voronoi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dec64f8b334338b56ea308c92d2205d939dea2d0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+766bc0c7fd7e64b5035185841cad5f29ae2ad145")]
 [assembly: System.Reflection.AssemblyProductAttribute("lab5_Voronoi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("lab5_Voronoi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
