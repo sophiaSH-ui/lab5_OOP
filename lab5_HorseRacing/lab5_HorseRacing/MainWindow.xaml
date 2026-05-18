@@ -108,7 +108,7 @@
 
                 <Button Content="START SIMULATION" Click="StartSimulation_Click" Style="{StaticResource ModernButton}" Margin="0,0,0,10" Height="45" FontSize="14"/>
                 <Button Content="STOP" Click="StopSimulation_Click" Style="{StaticResource DangerButton}" Margin="0,0,0,10"/>
-                <Button Content="RESET MATCH" Click="ResetRace_Click" IsEnabled="{Binding CanReset}" Style="{StaticResource ActionButton}"/>
+                <Button Content="NEW RACE" Click="ResetRace_Click" IsEnabled="{Binding CanReset}" Style="{StaticResource ActionButton}"/>
             </StackPanel>
         </Border>
 

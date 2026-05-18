@@ -211,6 +211,10 @@ namespace lab5_HorseRacing
                     winners[i].Coefficient = Math.Round(baseCoef + (i * 0.4), 2);
                 }
             }
+
+            foreach (var horse in Horses)
+                horse.MoneyBet = 0;
+
             IsRaceFinished = true;
         }
 
