@@ -153,11 +153,10 @@ namespace lab5_HorseRacing
 
         private bool CanPlaceBet(object obj)
         {
-            if (SelectedHorse == null || Balance < BetAmount || Horses.Any(h => h.PositionX > 0))
+            if (BetAmount <= 0)
                 return false;
 
-            var alreadyBettedHorse = Horses.FirstOrDefault(h => h.MoneyBet > 0);
-            if (alreadyBettedHorse != null && alreadyBettedHorse != SelectedHorse)
+            if (SelectedHorse == null || Balance < BetAmount || Horses.Any(h => h.PositionX > 0))
                 return false;
 
             return true;
@@ -225,22 +224,35 @@ namespace lab5_HorseRacing
             if (winners.Count > 0)
             {
                 var firstPlace = winners.First();
-                var bettedHorse = Horses.FirstOrDefault(h => h.MoneyBet > 0);
 
-                if (bettedHorse != null)
+                double totalPayout = 0;
+                double totalLost = 0;
+                bool wonAnything = false;
+
+                foreach (var horse in Horses.Where(h => h.MoneyBet > 0))
                 {
-                    if (bettedHorse == firstPlace)
+                    if (horse == firstPlace)
                     {
-                        double payout = bettedHorse.MoneyBet * bettedHorse.Coefficient;
-                        Balance += payout;
-                        ResultTitle = $"🏆  {bettedHorse.Name} WON!";
-                        ResultSubtitle = $"Payout:  +{payout:F2} $  →  Balance: {Balance:F2} $";
+                        totalPayout += horse.MoneyBet * horse.Coefficient;
+                        wonAnything = true;
                     }
                     else
                     {
-                        ResultTitle = $"Your horse {bettedHorse.Name} lost";
-                        ResultSubtitle = $"Winner:  {firstPlace.Name}";
+                        totalLost += horse.MoneyBet;
                     }
+                }
+
+                Balance += totalPayout;
+
+                if (wonAnything)
+                {
+                    ResultTitle = $"🏆  {firstPlace.Name} WON!";
+                    ResultSubtitle = $"Payout:  +{totalPayout:F2} $  →  Balance: {Balance:F2} $";
+                }
+                else if (totalLost > 0)
+                {
+                    ResultTitle = $"💸 You lost {-totalLost:F2} $";
+                    ResultSubtitle = $"Winner:  {firstPlace.Name}";
                 }
                 else
                 {

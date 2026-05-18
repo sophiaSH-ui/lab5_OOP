@@ -63,18 +63,22 @@
         </Style>
 
         <Style TargetType="ComboBox">
-            <Setter Property="Background" Value="#080E09"/>
-            <Setter Property="Foreground" Value="#C8D890"/>
+            <Setter Property="Background" Value="#E8ECE9"/>
+            <Setter Property="Foreground" Value="#050C07"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+
             <Setter Property="BorderBrush" Value="#243C26"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="8,6"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="FontFamily" Value="Segoe UI"/>
+
             <Setter Property="ItemContainerStyle">
                 <Setter.Value>
                     <Style TargetType="ComboBoxItem">
                         <Setter Property="Background" Value="#080E09"/>
                         <Setter Property="Foreground" Value="#C8D890"/>
+                        <Setter Property="FontWeight" Value="Normal"/>
                         <Setter Property="Padding" Value="10,6"/>
                         <Setter Property="BorderThickness" Value="0"/>
                         <Setter Property="Cursor" Value="Hand"/>

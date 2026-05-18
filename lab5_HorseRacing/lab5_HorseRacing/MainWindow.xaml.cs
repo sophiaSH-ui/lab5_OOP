@@ -95,27 +95,33 @@ namespace lab5_HorseRacing
 
             if (allFinished && !_viewModel.IsRaceFinished)
             {
-                var bettedHorse = _viewModel.Horses.FirstOrDefault(h => h.MoneyBet > 0);
                 Horse winner = _viewModel.Horses.Where(h => h.IsFinished).OrderBy(h => h.RaceTime).FirstOrDefault();
-                double payout = 0;
-                bool playerWon = false;
 
-                if (bettedHorse != null && winner != null)
+                var bettedHorses = _viewModel.Horses.Where(h => h.MoneyBet > 0).ToList();
+
+                double totalPayout = 0;
+                double totalLost = 0;
+
+                if (winner != null)
                 {
-                    playerWon = (winner == bettedHorse);
-                    if (playerWon)
-                        payout = bettedHorse.MoneyBet * bettedHorse.Coefficient;
+                    foreach (var h in bettedHorses)
+                    {
+                        if (h == winner)
+                            totalPayout += h.MoneyBet * h.Coefficient;
+                        else
+                            totalLost += h.MoneyBet;
+                    }
                 }
 
                 _viewModel.ProcessResults();
 
                 string msg;
-                if (bettedHorse != null)
+                if (bettedHorses.Any())
                 {
-                    if (playerWon)
-                        msg = $"Your horse {bettedHorse.Name} WON!\nPayout: {payout:F2} $";
+                    if (totalPayout > 0)
+                        msg = $"Winner is {winner?.Name}!\nYour winning payout: {totalPayout:F2} $\nYou lost on other bets: {totalLost:F2} $";
                     else
-                        msg = $"Your horse {bettedHorse.Name} lost.\nWinner: {winner?.Name}";
+                        msg = $"Winner is {winner?.Name}.\nUnfortunately, all your bets lost (Total lost: {totalLost:F2} $).";
                 }
                 else
                 {
